@@ -1,0 +1,1 @@
+web: gunicorn jmoller_final.wsgi --log-file -
