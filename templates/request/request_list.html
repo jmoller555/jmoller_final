@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for request in object_list %}
+<div class="panel">
+  <h3>{{ request.title }}</h3>
+  <p>Requested by {{ request.user.username }} on {{ request.created_at }}</p>
+</div>
+{% endfor %}
+{% endblock %}
