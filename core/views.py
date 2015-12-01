@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView
 from django.core.urlresolvers import reverse_lazy
 from .models import *
 
@@ -20,3 +20,7 @@ class RequestCreateView(CreateView):
 class RequestListView(ListView):
   model = Request
   template_name = "request/request_list.html"
+
+class RequestDetailView(DetailView):
+  model = Request
+  template_name = 'request/request_detail.html'

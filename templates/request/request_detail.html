@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ request.course_code }}</h1>
+<p>{{ request.topic_description }}</p>
+<p>Requested by {{ request.user.username }} on {{ request.created_at }}</p>
+{% endblock %}

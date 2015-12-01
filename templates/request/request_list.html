@@ -2,7 +2,7 @@
 {% block content %}
 {% for request in object_list %}
 <div class="panel">
-  <h3>{{ request.course_code }}</h3>
+  <h3><a href="{{ request.get_absolute_url }}">{{ request.course_code }}</a></h3>
   <p>Requested by {{ request.user.username }} on {{ request.created_at }}</p>
 </div>
 {% endfor %}
