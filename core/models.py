@@ -14,3 +14,13 @@ class Request(models.Model):
 
   def get_absolute_url(self):
     return reverse("request_detail", args=[self.id])
+
+class Reply(models.Model):
+  request = models.ForeignKey(Request)
+  user = models.ForeignKey(User)
+  created_at = models.DateTimeField(auto_now_add=True)
+  rate_per_hour = models.CharField(max_length=300)
+  course_experience = models.TextField(null=True, blank=True)
+
+  def __unicode__(self):
+    return self.rate_per_hour

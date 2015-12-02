@@ -7,4 +7,5 @@
 <p><a href="{% url 'request_update' pk=request.id %}">Edit Tutor Request</a></p>
 <p><a href="{% url 'request_delete' pk=request.id %}">Delete Request</a></p>
 {% endif %}
+<p><a href="{% url 'reply_create' pk=request.id %}">Write reply</a></p>
 {% endblock %}
