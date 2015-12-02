@@ -5,5 +5,6 @@
 <p>Requested by {{ request.user.username }} on {{ request.created_at }}</p>
 {% if request.user == user %}
 <p><a href="{% url 'request_update' pk=request.id %}">Edit Tutor Request</a></p>
+<p><a href="{% url 'request_delete' pk=request.id %}">Delete Request</a></p>
 {% endif %}
 {% endblock %}

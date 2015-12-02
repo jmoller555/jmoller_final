@@ -9,4 +9,5 @@ urlpatterns = patterns('',
   url(r'^request/$', RequestListView.as_view(), name='request_list'),
   url(r'^request/(?P<pk>\d+)/$', RequestDetailView.as_view(), name='request_detail'),
   url(r'^request/update/(?P<pk>\d+)/$', RequestUpdateView.as_view(), name='request_update'),
+  url(r'^request/delete/(?P<pk>\d+)/$', RequestDeleteView.as_view(), name='request_delete'),
 )
