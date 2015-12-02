@@ -8,4 +8,5 @@ urlpatterns = patterns('',
   url(r'^request/create/$', RequestCreateView.as_view(), name='request_create'),
   url(r'^request/$', RequestListView.as_view(), name='request_list'),
   url(r'^request/(?P<pk>\d+)/$', RequestDetailView.as_view(), name='request_detail'),
+  url(r'^request/update/(?P<pk>\d+)/$', RequestUpdateView.as_view(), name='request_update'),
 )

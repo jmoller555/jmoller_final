@@ -3,4 +3,7 @@
 <h1>{{ request.course_code }}</h1>
 <p>{{ request.topic_description }}</p>
 <p>Requested by {{ request.user.username }} on {{ request.created_at }}</p>
+{% if request.user == user %}
+<p><a href="{% url 'request_update' pk=request.id %}">Edit Tutor Request</a></p>
+{% endif %}
 {% endblock %}
