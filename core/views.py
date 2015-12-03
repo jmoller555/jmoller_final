@@ -31,6 +31,8 @@ class RequestDetailView(DetailView):
     request = Request.objects.get(id=self.kwargs['pk'])
     replies = Reply.objects.filter(request=request)
     context['replies'] = replies
+    user_replies = Reply.objects.filter(request=request, user=self.request.user)
+    context['user_replies'] = user_replies
     return context
 
 class RequestUpdateView(UpdateView):
@@ -64,6 +66,9 @@ class ReplyCreateView(CreateView):
     return self.object.request.get_absolute_url()
 
   def form_valid(self, form):
+    request = Request.objects.get(id=self.kwargs['pk'])
+    if Reply.objects.filter(request=request, user=self.request.user).exists():
+      raise PermissionDenied()
     form.instance.user = self.request.user
     form.instance.request = Request.objects.get(id=self.kwargs['pk'])
     return super(ReplyCreateView, self).form_valid(form)
