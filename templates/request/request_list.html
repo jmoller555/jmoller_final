@@ -4,6 +4,13 @@
 <div class="panel">
   <h3><a href="{{ request.get_absolute_url }}">{{ request.course_code }}</a></h3>
   <p>Requested by {{ request.user.username }} on {{ request.created_at }}</p>
+  <p>{{ request.vote_set.all.count }} Vote{{ request.vote_set.all.count|pluralize }}</p>
+  <form method="post" action="{% url 'vote' %}">
+    {% csrf_token %}
+    <input type="hidden" name="request" value="{{ request.id }}" />
+    <input type="hidden" name="user" value="{{ user.id }}" />
+    <button>+</button>
+  </form>
 </div>
 {% endfor %}
 {% endblock %}
