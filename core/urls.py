@@ -12,4 +12,5 @@ urlpatterns = patterns('',
   url(r'^request/delete/(?P<pk>\d+)/$', RequestDeleteView.as_view(), name='request_delete'),
   url(r'^request/(?P<pk>\d+)/reply/create/$', ReplyCreateView.as_view(), name='reply_create'),
   url(r'^request/(?P<request_pk>\d+)/reply/update/(?P<reply_pk>\d+)/$', ReplyUpdateView.as_view(), name='reply_update'),
+  url(r'^request/(?P<request_pk>\d+)/reply/delete/(?P<reply_pk>\d+)/$', ReplyDeleteView.as_view(), name='reply_delete'),
 )

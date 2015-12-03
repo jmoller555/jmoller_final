@@ -63,3 +63,11 @@ class ReplyUpdateView(UpdateView):
 
   def get_success_url(self):
     return self.object.request.get_absolute_url()
+
+class ReplyDeleteView(DeleteView):
+  model = Reply
+  pk_url_kwarg = 'reply_pk'
+  template_name = 'reply/reply_confirm_delete.html'
+
+  def get_success_url(self):
+    return self.object.request.get_absolute_url()

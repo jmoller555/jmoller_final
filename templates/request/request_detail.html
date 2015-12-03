@@ -15,6 +15,7 @@
   <p>{{ reply.rate_per_hour }}</p>
   {% if reply.user == user %}
   <p><a href="{% url 'reply_update' request_pk=request.id reply_pk=reply.id %}">Edit reply</a></p>
+  <p><a href="{% url 'reply_delete' request_pk=request.id reply_pk=reply.id %}">Delete reply</a></p>
   {% endif %}
   <p>Provided by {{ reply.user.username }} on {{ reply.created_at }}</p>
 </div>
