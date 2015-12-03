@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from django.core.exceptions import PermissionDenied
 from .models import *
 
 # Create your views here.
@@ -37,10 +38,22 @@ class RequestUpdateView(UpdateView):
   template_name = 'request/request_form.html'
   fields = ['course_code', 'topic_description']
 
+  def get_object(self, *args, **kwargs):
+    object = super(RequestUpdateView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
+
 class RequestDeleteView(DeleteView):
   model = Request
   template_name = 'request/request_confirm_delete.html'
   success_url = reverse_lazy('request_list')
+
+  def get_object(self, *args, **kwargs):
+    object = super(RequestDeleteView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
 
 class ReplyCreateView(CreateView):
   model = Reply
@@ -64,6 +77,12 @@ class ReplyUpdateView(UpdateView):
   def get_success_url(self):
     return self.object.request.get_absolute_url()
 
+  def get_object(self, *args, **kwargs):
+    object = super(ReplyUpdateView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
+
 class ReplyDeleteView(DeleteView):
   model = Reply
   pk_url_kwarg = 'reply_pk'
@@ -71,3 +90,9 @@ class ReplyDeleteView(DeleteView):
 
   def get_success_url(self):
     return self.object.request.get_absolute_url()
+
+  def get_object(self, *args, **kwargs):
+    object = super(ReplyDeleteView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
