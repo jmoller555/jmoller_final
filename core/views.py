@@ -25,6 +25,13 @@ class RequestDetailView(DetailView):
   model = Request
   template_name = 'request/request_detail.html'
 
+  def get_context_data(self, **kwargs):
+    context = super(RequestDetailView, self).get_context_data(**kwargs)
+    request = Request.objects.get(id=self.kwargs['pk'])
+    replies = Reply.objects.filter(request=request)
+    context['replies'] = replies
+    return context
+
 class RequestUpdateView(UpdateView):
   model = Request
   template_name = 'request/request_form.html'

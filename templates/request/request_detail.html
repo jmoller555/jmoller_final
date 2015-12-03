@@ -7,5 +7,14 @@
 <p><a href="{% url 'request_update' pk=request.id %}">Edit Tutor Request</a></p>
 <p><a href="{% url 'request_delete' pk=request.id %}">Delete Request</a></p>
 {% endif %}
+{% if replies.count > 0 %}
+<h3>{{ replies.count }} Reply{{ replies.count|pluralize }}:</h3>
+{% endif %}
+{% for reply in replies %}
+<div class="panel">
+  <p>{{ reply.rate_per_hour }}</p>
+  <p>Provided by {{ reply.user.username }} on {{ reply.created_at }}</p>
+</div>
+{% endfor %}
 <p><a href="{% url 'reply_create' pk=request.id %}">Write reply</a></p>
 {% endblock %}
