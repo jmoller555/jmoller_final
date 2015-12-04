@@ -26,6 +26,12 @@ class RequestListView(ListView):
   template_name = "request/request_list.html"
   paginate_by = 5
 
+  def get_context_data(self, **kwargs):
+    context = super(RequestListView, self).get_context_data(**kwargs)
+    user_votes = Request.objects.filter(vote__user=self.request.user)
+    context['user_votes'] = user_votes
+    return context
+
 class RequestDetailView(DetailView):
   model = Request
   template_name = 'request/request_detail.html'
@@ -37,6 +43,8 @@ class RequestDetailView(DetailView):
     context['replies'] = replies
     user_replies = Reply.objects.filter(request=request, user=self.request.user)
     context['user_replies'] = user_replies
+    user_votes = Reply.objects.filter(vote__user=self.request.user)
+    context['user_votes'] = user_votes
     return context
 
 class RequestUpdateView(UpdateView):
