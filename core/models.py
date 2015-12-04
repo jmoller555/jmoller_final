@@ -7,6 +7,15 @@ VISIBILITY_CHOICES = (
 (1, 'Anonymous'),
 )
 
+RATING_CHOICES = (
+(0, 'None'),
+(1, '*'),
+(2, '**'),
+(3, '***'),
+(4, '****'),
+(5, '*****'),
+)
+
 # Create your models here.
 class Request(models.Model):
   course_code = models.CharField(max_length=300)
@@ -28,6 +37,7 @@ class Reply(models.Model):
   rate_per_hour = models.CharField(max_length=300)
   course_experience = models.TextField(null=True, blank=True)
   visibility = models.IntegerField(choices=VISIBILITY_CHOICES, default=0)
+  rating = models.IntegerField(choices=RATING_CHOICES, default=0)
 
   def __unicode__(self):
     return self.rate_per_hour

@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.views.generic import FormView
 from .models import *
 from .forms import *
+from django.db.models import Avg
 
 # Create your views here.
 class Home(TemplateView):
@@ -45,6 +46,8 @@ class RequestDetailView(DetailView):
     context['user_replies'] = user_replies
     user_votes = Reply.objects.filter(vote__user=self.request.user)
     context['user_votes'] = user_votes
+    rating = Reply.objects.filter(request=request).aggregate(Avg('rating'))
+    context['rating'] = rating
     return context
 
 class RequestUpdateView(UpdateView):
@@ -72,7 +75,7 @@ class RequestDeleteView(DeleteView):
 class ReplyCreateView(CreateView):
   model = Reply
   template_name = "reply/reply_form.html"
-  fields = ['rate_per_hour', 'course_experience', 'visibility']
+  fields = ['rate_per_hour', 'course_experience', 'visibility', 'rating']
 
   def get_success_url(self):
     return self.object.request.get_absolute_url()
