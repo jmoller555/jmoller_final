@@ -24,6 +24,7 @@ class RequestCreateView(CreateView):
 class RequestListView(ListView):
   model = Request
   template_name = "request/request_list.html"
+  paginate_by = 5
 
 class RequestDetailView(DetailView):
   model = Request
