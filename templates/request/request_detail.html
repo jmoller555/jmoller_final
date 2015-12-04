@@ -2,7 +2,7 @@
 {% block content %}
 <h1>{{ request.course_code }}</h1>
 <p>{{ request.topic_description }}</p>
-<p>Requested by <a href="{% url 'user_detail' slug=request.user.username %}">{{ request.user.username }}</a> on {{ request.created_at }}</p>
+<p>Requested {% if request.visibility == 0 %} by <a href="{% url 'user_detail' slug=request.user.username %}">{{ request.user.username }}</a> {% endif %} on {{ request.created_at }}</p>
 {% if request.user == user %}
 <p><a href="{% url 'request_update' pk=request.id %}">Edit Tutor Request</a></p>
 <p><a href="{% url 'request_delete' pk=request.id %}">Delete Request</a></p>
@@ -17,7 +17,7 @@
   <p><a href="{% url 'reply_update' request_pk=request.id reply_pk=reply.id %}">Edit reply</a></p>
   <p><a href="{% url 'reply_delete' request_pk=request.id reply_pk=reply.id %}">Delete reply</a></p>
   {% endif %}
-  <p>Provided by <a href="{% url 'user_detail' slug=reply.user.username %}">{{ reply.user.username }}</a> on {{ reply.created_at }} ({{ reply.vote_set.all.count }} Vote{{ reply.vote_set.all.count|pluralize }})</p>
+  <p>Provided {% if reply.visibility == 0 %} by <a href="{% url 'user_detail' slug=reply.user.username %}">{{ reply.user.username }}</a> {% endif %} on {{ reply.created_at }} ({{ reply.vote_set.all.count }} Vote{{ reply.vote_set.all.count|pluralize }})</p>
   <form method="post" action="{% url 'vote' %}">
     {% csrf_token %}
     <input type="hidden" name="reply" value="{{ reply.id }}" />
