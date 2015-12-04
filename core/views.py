@@ -178,3 +178,8 @@ class UserDeleteView(DeleteView):
     user.is_active = False
     user.save()
     return redirect(self.get_success_url())
+
+class SearchRequestListView(RequestListView):
+  def get_queryset(self):
+    incoming_query_string = self.request.GET.get('query','')
+    return Request.objects.filter(course_code__icontains=incoming_query_string)
